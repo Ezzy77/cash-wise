@@ -1,13 +1,8 @@
-
-import 'dart:async';
-
 import 'package:cash_wise2/pages/homePage.dart';
 import 'package:cash_wise2/pages/profilePage.dart';
 import 'package:cash_wise2/pages/statsPage.dart';
 import 'package:cash_wise2/pages/walletPage.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_auth_ui/supabase_auth_ui.dart';
-import 'package:uni_links/uni_links.dart';
 
 
 class MainPage extends StatefulWidget {

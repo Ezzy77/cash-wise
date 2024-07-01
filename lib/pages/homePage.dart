@@ -1,23 +1,39 @@
+import 'package:cash_wise2/main.dart';
+import 'package:cash_wise2/service/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  // Define your list of items
-  final List<Map<String, dynamic>> items = [
-    {'title': 'Food', 'icon': Icons.fastfood},
-    {'title': 'Transport', 'icon': Icons.directions_car},
-    {'title': 'Shopping', 'icon': Icons.shopping_cart},
-    {'title': 'Entertainment', 'icon': Icons.movie},
-    {'title': 'Bills', 'icon': Icons.receipt},
-    {'title': 'Others', 'icon': Icons.more_horiz},
-    // Add more items as needed
-  ];
+  final ExpenseService _expenseService = ExpenseService();
+
+  final user = supabase.auth.currentUser;
+
+  List<Map<String, dynamic>> items = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadExpenses();
+  }
+
+  Future<void> loadExpenses() async {
+    try {
+      final data = await _expenseService.getExpenses(user!.id);
+      setState(() {
+        items = data.map((e) => e.toMap()).toList();
+      });
+    } catch (e) {
+      print('Get expenses error: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +59,7 @@ class _HomePageState extends State<HomePage> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Transactions",
+                Text("Expenses",
                     style: TextStyle(color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold
@@ -70,8 +86,37 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: ListTile(
-                    title: Text(item['title']), // Use the item data to build the list item
-                    leading: Icon(item['icon']),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start, // Align the children to the start
+                      children: [
+                        Text(
+                          item['merchant'],
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold, // Add this line
+                          ),
+                        ),
+                        Text(
+                          DateFormat('MMM dd, yyyy').format(DateTime.parse(item['date'])),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12
+                          ),
+                        ),
+                        // Add more widgets here if needed
+                      ],
+                    ), // Use the item data to build the list item
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      child: Icon(Icons.shopping_basket, color: Colors.white), // Replace with your desired color
+                    ),
+                    trailing: Text('£${item['amount']}',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14
+                      ),
+                    ),
                     onTap: () {
                       // Handle tap
                     },
