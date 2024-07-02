@@ -2,6 +2,7 @@ import 'package:cash_wise2/main.dart';
 import 'package:cash_wise2/service/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -52,6 +53,51 @@ class _HomePageState extends State<HomePage> {
             decoration:  BoxDecoration(
               color:  const Color.fromARGB(255,48, 55, 69),
               borderRadius: BorderRadius.circular(25),
+            ),
+            child: Center(
+              child: SizedBox(
+                height: 125, // Adjust these values to change the size of the chart
+                width: 125, // Adjust these values to change the size of the chart
+                child: PieChart(
+                  PieChartData(
+                    sections: [
+                      PieChartSectionData(
+                        color: const Color.fromARGB(255, 48, 45, 59),
+                        value: 10,
+                        title: '30%',
+                        radius: 40,
+                        titleStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      PieChartSectionData(
+                        color: const Color.fromARGB(255, 255, 185, 0),
+                        value: 20,
+                        title: '20%',
+                        radius: 40,
+                        titleStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      PieChartSectionData(
+                        color: const Color.fromARGB(255, 255, 0, 0),
+                        value: 50,
+                        title: '50%',
+                        radius: 40,
+                        titleStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Container(
