@@ -5,14 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   final ExpenseService _expenseService = ExpenseService();
 
   final user = supabase.auth.currentUser;
@@ -38,11 +38,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 38, 40, 49),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255,48, 55, 69),
-        title: const Text('Welcome'),
+        backgroundColor: theme.appBarTheme.backgroundColor,
+        title:  Text('Welcome', style: theme.textTheme.bodyLarge),
       ),
       body: Column(
         children: [
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 5,
             decoration:  BoxDecoration(
-              color:  const Color.fromARGB(255,48, 55, 69),
+              color:  theme.cardColor,
               borderRadius: BorderRadius.circular(25),
             ),
             child: Center(
@@ -84,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       PieChartSectionData(
-                        color: const Color.fromARGB(255, 255, 0, 0),
+                        color: const Color.fromARGB(200,16, 44, 87),
                         value: 50,
                         title: '50%',
                         radius: 40,
@@ -102,19 +104,15 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             margin: const EdgeInsets.all(20), // Set the margin as per your requirement
-            child: const Row(
+            child:  Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Expenses",
-                    style: TextStyle(color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                    )
+                  style: theme.textTheme.bodyLarge,
                 ),
-                Text("View All", style:
-                TextStyle(color: Colors.grey,
-                  fontSize: 10,
-                )),
+                Text("View All",
+                  style: theme.textTheme.bodySmall,
+                ),
               ],
             ),
           ),
@@ -128,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 return Container(
                   margin: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255,48, 55, 69),
+                    color: theme.cardColor,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: ListTile(
@@ -137,31 +135,21 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           item['merchant'],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold, // Add this line
-                          ),
+                          style: theme.textTheme.bodyLarge,
                         ),
                         Text(
                           DateFormat('MMM dd, yyyy').format(DateTime.parse(item['date'])),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12
-                          ),
+                          style: theme.textTheme.bodySmall,
                         ),
                         // Add more widgets here if needed
                       ],
                     ), // Use the item data to build the list item
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      child: Icon(Icons.shopping_basket, color: Colors.white), // Replace with your desired color
+                    leading:  CircleAvatar(
+                      backgroundColor: theme.iconTheme.color,
+                      child: const Icon(Icons.shopping_basket, color: Colors.white), // Replace with your desired color
                     ),
                     trailing: Text('£${item['amount']}',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     onTap: () {
                       // Handle tap

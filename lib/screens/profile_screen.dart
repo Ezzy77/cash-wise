@@ -1,6 +1,5 @@
-import 'package:cash_wise2/pages/loginPage.dart';
+import 'package:cash_wise2/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -26,9 +25,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Profile'),
+        backgroundColor: theme.appBarTheme.backgroundColor,
+        title: Text('Profile',
+          style: theme.textTheme.bodyLarge,
+        ),
       ),
       body:  Container(
         padding: const EdgeInsets.all(20),
@@ -41,23 +45,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   radius: 40,
                   backgroundImage: AssetImage('assets/images/profile.jpg'),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'username',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                      ),
+                     style: theme.textTheme.bodySmall,
                     ),
                     Text(
                       session.user.email!,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ],
 
@@ -66,6 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 20),
             Card(
+              color: theme.cardColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -155,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onPressed: () {
                             _signOut();
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                              MaterialPageRoute(builder: (context) => const LoginScreen()),
                             );
                           },
                           child: const Text('Logout',

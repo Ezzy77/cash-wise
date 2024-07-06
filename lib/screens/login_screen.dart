@@ -1,19 +1,19 @@
 import 'dart:async';
-import 'package:cash_wise2/pages/mainPage.dart';
-import 'package:cash_wise2/pages/signupPage.dart';
+import 'package:cash_wise2/screens/main_screen.dart';
+import 'package:cash_wise2/screens/signup_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import '../main.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
 bool _isLoading = false;
 
 late final TextEditingController _passwordController = TextEditingController();
@@ -56,7 +56,7 @@ void initState() {
       final session = data.session;
       if (session != null) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const MainPage()),
+          MaterialPageRoute(builder: (context) => const MainScreen()),
         );
       }
     },
@@ -121,7 +121,7 @@ Widget build(BuildContext context) {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const SignUpPage()),
+                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
                 );
               },
               child: const Text('Sign Up'),

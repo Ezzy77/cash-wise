@@ -2,16 +2,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../main.dart';
-import 'loginPage.dart';
+import 'login_screen.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpScreen> createState() => _SignUpScreenPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpScreenPageState extends State<SignUpScreen> {
 
   bool _isLoading = false;
   bool _redirecting = false;
@@ -61,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
         if (session != null) {
           _redirecting = true;
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const LoginPage()),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
         }
       },
@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
                 },
                 child: const Text('Sign In'),

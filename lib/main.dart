@@ -1,5 +1,5 @@
-import 'package:cash_wise2/pages/loginPage.dart';
-import 'package:cash_wise2/pages/mainPage.dart';
+import 'package:cash_wise2/screens/login_screen.dart';
+import 'package:cash_wise2/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,10 +20,34 @@ Future<void> main() async{
   );
 
   runApp(  MaterialApp(
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: Colors.black),
+        bodyMedium: TextStyle(color: Colors.black),
+        titleMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+      cardColor: Colors.grey[200],
+      iconTheme: const IconThemeData(color: Colors.blue),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
+    ),
     home: supabase.auth.currentSession == null
-        ? const LoginPage()
-        : const MainPage(),
-  ));
+        ? const LoginScreen()
+        : const MainScreen(),
+  )
+  );
 }
 
 final supabase = Supabase.instance.client;
